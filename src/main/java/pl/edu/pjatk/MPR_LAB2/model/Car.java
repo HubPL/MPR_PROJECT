@@ -10,6 +10,7 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Long indentif;
     private String model;
     private String color;
 

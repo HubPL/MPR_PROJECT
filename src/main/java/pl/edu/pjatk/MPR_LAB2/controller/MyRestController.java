@@ -1,6 +1,8 @@
 package pl.edu.pjatk.MPR_LAB2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.pjatk.MPR_LAB2.model.Car;
 import pl.edu.pjatk.MPR_LAB2.services.CarService;
@@ -18,34 +20,40 @@ public class MyRestController {
     }
 
     @PostMapping("car")
-    public void addCar(@RequestBody Car car) {
+    public ResponseEntity<Void> addCar(@RequestBody Car car) {
         this.carService.add(car);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("car/{id}")
-    public void deleteCar(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
         this.carService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PatchMapping("car/{id}")
-    public void patchUpdateCar(@PathVariable Long id, @RequestBody Car updatedCar) {
+    public ResponseEntity<Void> patchUpdateCar(@PathVariable Long id, @RequestBody Car updatedCar) {
         this.carService.patchUpdate(id, updatedCar);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
     @GetMapping("car/all")
-    public List<Car> getAllCars() {return this.carService.getAllCars();}
+    public ResponseEntity<List<Car>> getAllCars() {
+        return new ResponseEntity<>(this.carService.getAllCars(), HttpStatus.OK);
+    }
 
     @GetMapping("car/{id}")
-    public Optional<Car> getCarById(@PathVariable Long id) {
-        return this.carService.getCarByID(id);
+    public ResponseEntity<Car> getCarById(@PathVariable Long id) {
+        return new ResponseEntity<>(this.carService.getCarByID(id), HttpStatus.OK);
     }
 
     @GetMapping("car/model/{model}")
-    public List<Car> getByModel(@PathVariable String model) {
-        return this.carService.getCarByModel(model);
+    public ResponseEntity<List<Car>> getByModel(@PathVariable String model) {
+       return new ResponseEntity<>(this.carService.getCarByModel(model), HttpStatus.OK);
     }
 
     @GetMapping("car/color/{color}")
-    public List<Car> getByColor(@PathVariable String color) {
-        return this.carService.getCarByBrand(color);
+    public ResponseEntity<List<Car>> getByColor(@PathVariable String color) {
+        return new ResponseEntity<>(this.carService.getCarByColor(color), HttpStatus.OK);
     }
 }
