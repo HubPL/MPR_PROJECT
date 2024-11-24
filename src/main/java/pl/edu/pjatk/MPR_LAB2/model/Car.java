@@ -10,16 +10,9 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Long indentif;
+    private int identificator;
     private String model;
     private String color;
-
-    public Car(){}
-
-    public Car(String model, String color) {
-        this.model = model;
-        this.color = color;
-    }
 
     public Long getId() {
         return id;
@@ -29,11 +22,10 @@ public class Car {
         this.id = id;
     }
 
-    public String getColor() {
-        return color;
-    }
+    public Car(){}
 
-    public void setColor(String color) {
+    public Car(String model, String color) {
+        this.model = model;
         this.color = color;
     }
 
@@ -44,4 +36,28 @@ public class Car {
     public void setModel(String model) {
         this.model = model;
     }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public int getIdentificator() {
+        identificator = 0;
+        for(int i = 0; i < model.length(); i++){
+            identificator += model.toLowerCase().charAt(i);
+        }
+        for(int i = 0; i < color.length(); i++){
+            identificator += color.toLowerCase().charAt(i);
+        }
+        return identificator;
+    }
+
+    public void setIdentificator(int identificator) {
+        this.identificator = identificator;
+    }
+
 }

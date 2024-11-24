@@ -1,23 +1,81 @@
 package pl.edu.pjatk.MPR_LAB2;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import pl.edu.pjatk.MPR_LAB2.exception.StringUtilsWrongInputException;
 import pl.edu.pjatk.MPR_LAB2.services.StringUtilsService;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StringUtilsServiceTest {
 
-    private final StringUtilsService stringUtilsService = new StringUtilsService();
+    private StringUtilsService stringUtilsService;
 
-    @Test
-    public void testToUpperCase() {
-        assertEquals("BMW", stringUtilsService.toUpperCase("bmw"));
-        assertEquals("MERCEDES", stringUtilsService.toUpperCase("Mercedes"));
+    @BeforeEach
+    public void setUp() {
+        stringUtilsService = new StringUtilsService();
     }
 
     @Test
-    public void testCapitalize() {
-        assertEquals("Bmw", stringUtilsService.capitalize("bmw"));
-        assertEquals("Mercedes", stringUtilsService.capitalize("MERCEDES"));
+    public void testToProperCaseSuccess_RandomCases_DoesNotThrowException() {
+        String input = "tEstStrIng";
+        String expected = "Teststring";
+
+        String actual = stringUtilsService.toProperCase(input);
+
+        assertEquals(expected, actual);
+        assertDoesNotThrow(()-> stringUtilsService.toProperCase(input));
     }
+    @Test
+    public void testToProperCaseFailure_EmptyString_ThrowsException () {
+        String input = "";
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toProperCase(input));
+    }
+    @Test
+    public void testToProperCase_NullInput_ThrowsException () {
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toProperCase(null));
+    }
+
+    //test toUpperCase
+    @Test
+    public void testToUpperCaseSuccess_RandomCases_DoesNotThrowException() {
+        String input = "tEstSTring";
+        String expected = "TESTSTRING";
+
+        String actual = stringUtilsService.toUpperCase(input);
+
+        assertEquals(expected, actual);
+        assertDoesNotThrow(()-> stringUtilsService.toUpperCase(input));
+    }
+    @Test
+    public void testToUpperCaseFailure_EmptyString_ThrowsException () {
+        String input = "";
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toUpperCase(input));
+    }
+    @Test
+    public void testToUpperCase_NullInput_ThrowsException () {
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toUpperCase(null));
+    }
+
+    //test toLowerCase
+    @Test
+    public void testToLowerCaseSuccess_RandomCases_DoesNotThrowException() {
+        String input = "tEstSTring";
+        String expected = "teststring";
+
+        String actual = stringUtilsService.toLowerCase(input);
+
+        assertEquals(expected, actual);
+        assertDoesNotThrow(()-> stringUtilsService.toLowerCase(input));
+    }
+    @Test
+    public void testToLowerCaseFailure_EmptyString_ThrowsException () {
+        String input = "";
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toLowerCase(input));
+    }
+    @Test
+    public void testToLowerCase_NullInput_ThrowsException () {
+        assertThrows(StringUtilsWrongInputException.class, ()-> stringUtilsService.toLowerCase(null));
+    }
+
 }
